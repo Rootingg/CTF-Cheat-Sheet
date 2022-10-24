@@ -24,6 +24,7 @@ nmap --script "SCRIPT" -p "PORT" "IPADDRESS"
 nmap –script smb-vuln* -p 139,445 10.10.10.134
 ```
 __WEB__
+```bash
 nikto -h "URL" -p "PORTS"
 nikto -h 192.168.0.1 -p 80,443
 
@@ -31,7 +32,7 @@ gobuster --url "IP ADDRESS" dir --wordlist "WORDLIST" -x "EXTENSION"
 gobuster –url 10.10.10.157 dir –wordlist /usr/share/wordlists/dirb/big.txt -x php,txt,html,htm
 
 -k -> pas de vérification du certificat SSL
-
+```
 smbclient --list //"IPADDRESS"/ -U ""
 __Enumération des répertoires partagés accessibles en anonymous__
 
