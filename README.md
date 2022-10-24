@@ -213,21 +213,4 @@ __Script de bruteforce anti-CSRF :__
 https://github.com/J3wker/anti-CSRF_Token-Bruteforce
 
 
-####Ecrire du code
 
-#####Un code entier
-
-nmap (
--A : détection du système et des versions
--sP : simple ping scan
--sS/sT/sA/sW/sM: Scans TCP SYN/Connect()/ACK/Window/Maimon
--sN/sF/sX: Scans TCP Null, FIN et Xmas
--sU: Scan UDP
--T4 : Définit une temporisation[0-5]
-)
-nmap -A -T4 -sV 10.10.10.157
-
-nmap --script "SCRIPT" -p "PORT" "IPADDRESS"
-nmap –script smb-vuln* -p 139,445 10.10.10.134
-
-#####Juste un morceau de code
