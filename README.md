@@ -210,3 +210,28 @@ __Pour bruteforcer avec un dictionnaire__
 
 __Script de bruteforce anti-CSRF :__
 https://github.com/J3wker/anti-CSRF_Token-Bruteforce
+
+
+####Ecrire du code
+
+#####Un code entier
+
+Voici un code en C :
+
+    int main()
+    {
+        printf("Hello world!\n");
+        return 0;
+    }
+    
+Il vous suffit d'écrire votre phrase de présentation comme n'importe quelle phrase et d'écrire votre code à la ligne.
+    
+`Voici un code en C :`
+
+    int main()
+    {
+        printf("Hello world!\n");
+        return 0;
+    }
+
+#####Juste un morceau de code
