@@ -9,6 +9,8 @@ https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/blob/m
 https://github.com/rebootuser/LinEnum/blob/master/LinEnum.sh  
 
 __Enumération__
+    ```bash
+
 
 nmap (
 -A : détection du système et des versions
@@ -22,7 +24,7 @@ nmap -A -T4 -sV 10.10.10.157
 
 nmap --script "SCRIPT" -p "PORT" "IPADDRESS"
 nmap –script smb-vuln* -p 139,445 10.10.10.134
-
+    ```
 __WEB__
 nikto -h "URL" -p "PORTS"
 nikto -h 192.168.0.1 -p 80,443
