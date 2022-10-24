@@ -9,7 +9,7 @@ https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/blob/m
 https://github.com/rebootuser/LinEnum/blob/master/LinEnum.sh  
 
 __Enumération__
-Voici un code en C :
+
 nmap (
 -A : détection du système et des versions
 -sP : simple ping scan
@@ -22,6 +22,7 @@ nmap -A -T4 -sV 10.10.10.157
 
 nmap --script "SCRIPT" -p "PORT" "IPADDRESS"
 nmap –script smb-vuln* -p 139,445 10.10.10.134
+
 __WEB__
 nikto -h "URL" -p "PORTS"
 nikto -h 192.168.0.1 -p 80,443
@@ -216,22 +217,17 @@ https://github.com/J3wker/anti-CSRF_Token-Bruteforce
 
 #####Un code entier
 
-Voici un code en C :
+nmap (
+-A : détection du système et des versions
+-sP : simple ping scan
+-sS/sT/sA/sW/sM: Scans TCP SYN/Connect()/ACK/Window/Maimon
+-sN/sF/sX: Scans TCP Null, FIN et Xmas
+-sU: Scan UDP
+-T4 : Définit une temporisation[0-5]
+)
+nmap -A -T4 -sV 10.10.10.157
 
-    int main()
-    {
-        printf("Hello world!\n");
-        return 0;
-    }
-    
-Il vous suffit d'écrire votre phrase de présentation comme n'importe quelle phrase et d'écrire votre code à la ligne.
-    
-`Voici un code en C :`
-
-    int main()
-    {
-        printf("Hello world!\n");
-        return 0;
-    }
+nmap --script "SCRIPT" -p "PORT" "IPADDRESS"
+nmap –script smb-vuln* -p 139,445 10.10.10.134
 
 #####Juste un morceau de code
